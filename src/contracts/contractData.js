@@ -1,16 +1,17 @@
-export const contractAddr = '0x3b7A340AC472f6d631D621C74EA0BF446Db15A27';
+export const contractAddress = '0x45516E2bF44922BcA294eeFB804660bD5DE68dAC';
 export const contractABI = [
     {
         inputs: [
             {
                 internalType: 'address',
-                name: 'ethUsdPriceFeed',
+                name: '_ethUsdPriceFeed',
                 type: 'address',
             },
         ],
         stateMutability: 'nonpayable',
         type: 'constructor',
     },
+    { inputs: [], name: 'CrowdFunding__NotOwner', type: 'error' },
     {
         inputs: [{ internalType: 'address', name: 'owner', type: 'address' }],
         name: 'OwnableInvalidOwner',
@@ -20,6 +21,25 @@ export const contractABI = [
         inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
         name: 'OwnableUnauthorizedAccount',
         type: 'error',
+    },
+    {
+        anonymous: false,
+        inputs: [
+            {
+                indexed: true,
+                internalType: 'address',
+                name: 'funder',
+                type: 'address',
+            },
+            {
+                indexed: false,
+                internalType: 'uint256',
+                name: 'amountFunded',
+                type: 'uint256',
+            },
+        ],
+        name: 'Funded',
+        type: 'event',
     },
     {
         anonymous: false,
@@ -40,7 +60,33 @@ export const contractABI = [
         name: 'OwnershipTransferred',
         type: 'event',
     },
+    {
+        anonymous: false,
+        inputs: [
+            {
+                indexed: true,
+                internalType: 'address',
+                name: 'owner',
+                type: 'address',
+            },
+            {
+                indexed: false,
+                internalType: 'uint256',
+                name: 'contractBalance',
+                type: 'uint256',
+            },
+        ],
+        name: 'Withdraw',
+        type: 'event',
+    },
     { stateMutability: 'payable', type: 'fallback' },
+    {
+        inputs: [],
+        name: 'MINIMUM_USD',
+        outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+        stateMutability: 'view',
+        type: 'function',
+    },
     {
         inputs: [],
         name: 'fund',
@@ -52,6 +98,13 @@ export const contractABI = [
         inputs: [],
         name: 'getFunderLength',
         outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+        stateMutability: 'view',
+        type: 'function',
+    },
+    {
+        inputs: [],
+        name: 'i_ethUsdPriceFeed',
+        outputs: [{ internalType: 'address', name: '', type: 'address' }],
         stateMutability: 'view',
         type: 'function',
     },
@@ -70,9 +123,18 @@ export const contractABI = [
         type: 'function',
     },
     {
-        inputs: [{ internalType: 'address', name: '', type: 'address' }],
-        name: 's_addressToUsdAmount',
-        outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+        inputs: [{ internalType: 'address', name: 'funder', type: 'address' }],
+        name: 's_addressToAmountFunded',
+        outputs: [
+            { internalType: 'uint256', name: 'amountFunded', type: 'uint256' },
+        ],
+        stateMutability: 'view',
+        type: 'function',
+    },
+    {
+        inputs: [{ internalType: 'address', name: 'funder', type: 'address' }],
+        name: 's_fundeds',
+        outputs: [{ internalType: 'bool', name: 'funded', type: 'bool' }],
         stateMutability: 'view',
         type: 'function',
     },

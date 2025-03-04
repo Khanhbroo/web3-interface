@@ -1,12 +1,13 @@
-import clsx from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import clsx from 'clsx';
 
 export const shortenAddress = (address, startLength = 5, endLength = 5) => {
     if (address) {
-        const start = address.substring(0, startLength + 2);
-        const end = address.substring(address.length - endLength);
-        return `${start}...${end}`;
-    } else return undefined;
+        const startAddress = address.slice(0, startLength);
+        const endAddress = address.slice(address.length - endLength);
+        return `${startAddress}...${endAddress}`;
+    }
+    return undefined;
 };
 
 export const cn = (...className) => {

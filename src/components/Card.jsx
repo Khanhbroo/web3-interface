@@ -1,6 +1,15 @@
+import { useStateContext } from '../context';
 import { cn } from '../lib/utils';
 
-const Card = ({ children, className }) => {
+const Card = ({
+    headingContent,
+    paraContent,
+    span,
+    onlyChildren,
+    children,
+    className,
+}) => {
+    const { isLoading, LoaderCircle } = useStateContext();
     return (
         <div
             className={cn(
@@ -8,6 +17,23 @@ const Card = ({ children, className }) => {
                 className,
             )}
         >
+            {/* Check if there is no onlyChildren, isLoading equals false and paraContent is a truthy then display the content of paraContent */}
+            {!onlyChildren && (
+                <div>
+                    <h2 className="text-lg font-semibold">{headingContent}</h2>
+                    {isLoading && (
+                        <div className="py-[6px]">
+                            <LoaderCircle className="animate-spin" />
+                        </div>
+                    )}
+                    {!isLoading && paraContent && (
+                        <p className="text-3xl font-bold">
+                            {paraContent}{' '}
+                            {span && <span className="text-base">{span}</span>}
+                        </p>
+                    )}
+                </div>
+            )}
             {children}
         </div>
     );

@@ -1,29 +1,36 @@
-import { ExternalLink } from 'lucide-react';
-import { shortenAddress } from '../../../lib/utils';
-import { useAppKit, useAppKitAccount } from '@reown/appkit/react';
-import { contractAddr } from '../../../contracts/contractData';
-import Button from '../../../components/Button';
+import { useStateContext } from '../../../context';
+import { Button } from '../../../components';
 
 const Header = () => {
-    const { open } = useAppKit();
-    const { address, isConnected } = useAppKitAccount();
+    const {
+        open,
+        address,
+        contractAddress,
+        isConnected,
+        shortenAddress,
+        getContractAddress,
+        ExternalLink,
+    } = useStateContext();
 
     return (
         <header className="py-3 border-b">
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center gap-2">
                 <div className="flex items-center gap-2">
-                    <h1 className="text-xl font-bold">CrowdFunding</h1>
+                    <h1 className="text-2xl font-bold">CrowdFunding</h1>
                     <a
-                        className="flex items-center text-sm hover:bg-gray-200 p-1 rounded-4xl transition-colors gap-1 translate-y-0.5"
+                        className="flex items-center rounded-[12px] px-2 py-1 hover:bg-gray-200 translate-y-[2px] gap-1"
+                        href={`https://sepolia.etherscan.io/address/${contractAddress}`}
                         target="_blank"
-                        href={`https://sepolia.etherscan.io/address/${contractAddr}`}
                     >
-                        {shortenAddress(contractAddr)}
+                        {shortenAddress(getContractAddress(contractAddress))}
                         <ExternalLink className="w-4 h-4" />
                     </a>
                 </div>
-                <Button onClick={() => open()}>
-                    {isConnected ? shortenAddress(address) : 'Connect Wallet'}
+
+                <Button handleClick={() => open()}>
+                    {isConnected
+                        ? `${shortenAddress(getContractAddress(address))}`
+                        : 'Connect Wallet'}
                 </Button>
             </div>
         </header>

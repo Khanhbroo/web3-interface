@@ -1,13 +1,13 @@
 import { cn } from '../lib/utils';
 
-const Button = ({ children, className, onClick }) => {
+const Button = ({ className, children, handleClick }) => {
     return (
         <button
             className={cn(
-                'py-2 px-3 rounded-4xl bg-slate-900 text-sm text-white hover:bg-slate-800 cursor-pointer transition-colors',
+                'bg-slate-900 text-white rounded-[16px] px-3 py-2 hover:bg-slate-800 transition-colors cursor-pointer',
                 className,
             )}
-            onClick={onClick}
+            onClick={handleClick}
         >
             {children}
         </button>
