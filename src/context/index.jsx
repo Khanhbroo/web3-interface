@@ -16,7 +16,7 @@ import {
 import { EthersAdapter } from '@reown/appkit-adapter-ethers';
 import { sepolia } from '@reown/appkit/networks';
 
-import { contractAddress, contractABI } from '../contracts/ContractData';
+import { contractAddress, contractABI } from '../contracts/contractData';
 import {
     ExternalLink,
     LoaderCircle,
