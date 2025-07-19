@@ -23,7 +23,12 @@ const Card = ({
                     <h2 className="text-lg font-semibold">{headingContent}</h2>
                     {isLoading && (
                         <div className="py-[6px]">
-                            <LoaderCircle className="animate-spin" />
+                            <div className="flex items-center gap-2">
+                                <LoaderCircle className="animate-spin" />
+                                <p className="text-sm">
+                                    You need to connect your wallet first
+                                </p>
+                            </div>
                         </div>
                     )}
                     {!isLoading && paraContent && (

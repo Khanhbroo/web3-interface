@@ -44,7 +44,14 @@ const App = () => {
             </div>
             <div className="mt-6 pt-6 border-t space-y-5">
                 <h2 className="text-lg font-semibold mt-2">Latest Donation</h2>
-                {isLoading && <LoaderCircle className="animate-spin" />}
+                {isLoading && (
+                    <div className="flex items-center gap-2">
+                        <LoaderCircle className="animate-spin" />
+                        <p className="text-sm">
+                            You need to connect your wallet first
+                        </p>
+                    </div>
+                )}
                 {!isLoading &&
                     historyEvents &&
                     historyEvents.map((item, index) => (
